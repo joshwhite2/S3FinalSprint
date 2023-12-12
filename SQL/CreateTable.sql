@@ -7,6 +7,7 @@ CREATE TABLE public."Cars"
     colour character varying,
     mileage bigint,
     country character varying,
+	vin character varying,
     PRIMARY KEY (id)
 );
 
