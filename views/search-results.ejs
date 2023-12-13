@@ -1,0 +1,26 @@
+<!-- src/views/search-results.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+</head>
+<body>
+  <h1>Search Results</h1>
+
+  <% if (results.length > 0) { %>
+    <ul>
+      <% results.forEach(result => { %>
+        <li><%= result.your_display_field %></li>
+        <!-- Adjust "your_display_field" based on your actual data structure -->
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No results found.</p>
+  <% } %>
+
+  <!-- Add styling or additional content as needed -->
+</body>
+</html>
