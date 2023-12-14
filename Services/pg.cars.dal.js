@@ -24,3 +24,7 @@ const getCarsPostgres = function (search) {
     });
   });
 };
+
+module.exports = {
+  getCarsPostgres,
+};
