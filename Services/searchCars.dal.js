@@ -16,3 +16,6 @@ const searchCars = async (search) => {
     throw error;
   }
 };
+module.exports = {
+  searchCars,
+};
