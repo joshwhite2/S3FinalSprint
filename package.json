@@ -7,15 +7,31 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshwhite2/S3FinalSprint.git"
+  },
+  "keywords": [
+    "Fullstack",
+    "Database"
+  ],
+  "author": "Josh White, Ryan Crowley, Cameron Penney, Tanner Jones",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshwhite2/S3FinalSprint/issues"
+  },
+  "homepage": "https://github.com/joshwhite2/S3FinalSprint#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
     "mongoose": "^8.0.3",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "util": "^0.12.5",
+    "uuid": "^9.0.1"
   }
 }
