@@ -1,6 +1,5 @@
-// to retreieve cars based on search criteria
-
-const pool = require("../Services/postgres");
+const pool = require("/Users/keyinstudent/Desktop/S3FinalSprint/Services/postgres.js");
+console.log("Executing pg.cars.dal.js");
 
 const getCarsPostgres = function (search) {
   const sql = `
@@ -8,9 +7,9 @@ const getCarsPostgres = function (search) {
     WHERE 
         make ILIKE $1
         OR model ILIKE $1
-        OR year ILIKE $1
+        OR year::text ILIKE $1
         OR colour ILIKE $1
-        OR mileage ILIKE $1
+        OR mileage::text ILIKE $1
         OR vin ILIKE $1`;
 
   return new Promise(function (resolve, reject) {
