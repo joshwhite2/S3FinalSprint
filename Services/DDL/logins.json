@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "63875081ea918851144539ed"
+  },
+  "username": "satnam",
+  "email": "satnam@example.com",
+  "password": "$2b$10$siyNTg3GZsWkzGlPnvo44eoyMg/N1KEw0VX88R1HBjh32Lo62HPLy",
+  "uuid": "9b5e82a4-22ca-49a1-be08-81576a45e66b"
+},{
+  "_id": {
+    "$oid": "63924d6337b3b51589ea0a5c"
+  },
+  "username": "Example",
+  "email": "example@example.com",
+  "password": "$2b$10$1FgEk8WiYt5fZ5nlOEMQrOduapquAoGNLE.gNOHz5/f7L5KPleaky",
+  "uuid": "015c5921-cbf5-4673-b883-c261d4df0995"
+}]

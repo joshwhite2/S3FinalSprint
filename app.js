@@ -1,4 +1,6 @@
-
+if( process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const path = require('path');
 
 
@@ -34,7 +36,7 @@ const path = require('path');
 // db.once('open', () => {
 //   console.log('Connected to MongoDB!');
 // });
-
+const passport = require('passport')
 const express = require('express');
 const app = express();
 const port = 3000; // choose a port number
