@@ -14,6 +14,7 @@ const localStrategy = require('passport-local').Strategy;
 const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
+
 // Set up EJS for views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -90,11 +91,11 @@ app.get('/query/:word', checkAuthenticated, async (req, res) => {
 // This middleware is only for the login and register. If someone stumbles 
 // upon these routes they only need access if they are NOT authenticated. 
 app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('login.ejs');
+  res.render('index.ejs');
 });
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
+  successRedirect: '/index.ejs',
+  failureRedirect: '/',
   failureFlash: true
 }));
 app.get('/register', checkNotAuthenticated, (req, res) => {
