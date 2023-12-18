@@ -1,7 +1,9 @@
 const path = require('path');
+const passport = require('passport');
 const express = require('express');
 const app = express();
-const port = 3000; // choose a port number
+const port = 3000;
+
 
 // Set up EJS for views
 app.set('views', path.join(__dirname, 'views'));
