@@ -1,6 +1,11 @@
 // function that combines postgres and mongo queries to search for cars
-const searchCars = async (search) => {
+const logSearchAction = require('./logging'); // Import the logging function
+ 
+const searchCars = async (userId, search) => {
   try {
+    // Log the search
+    const timestamp = new Date().toISOString();
+    logSearchAction(userId, search, timestamp);
     // Search in PostgreSQL
     const postgresResult = await getCarsPostgres(search);
 

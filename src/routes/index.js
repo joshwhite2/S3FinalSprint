@@ -33,6 +33,7 @@ router.post('/search', async (req, res) => {
     console.error('Error during search:', error);
     res.status(500).send('Internal Server Error');
   }
+
 });
 
 module.exports = router;

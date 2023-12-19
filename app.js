@@ -61,12 +61,7 @@ app.get('/', (req, res) => {
   res.render('index.ejs', { name: req.user ? req.user.username : null });
 });
 
-app.get('/sample1', checkAuthenticated, (req, res) => {
-  res.render('sample.one.ejs');
-});
-app.get('/sample2', checkAuthenticated, (req, res) => {
-  res.render('sample.two.ejs');
-});
+
 
 async function getUser(userId) {
   // Implementation depends on your data source
@@ -94,21 +89,23 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('index.ejs');
 });
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/index.ejs',
-  failureRedirect: '/',
+  successRedirect: '/profile',
+  failureRedirect: '/sample2',
   failureFlash: true
 }));
+
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs');
 });
+
 app.post('/register', checkNotAuthenticated, async (req, res) => {
   try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       let result = await logins.addLogin(req.body.name, req.body.email, hashedPassword, uuid.v4());
-      res.redirect('/login');
+      res.redirect('/register');
   } catch(error) {
       console.log(error);
-      res.redirect('/register');
+      res.redirect('/login');
   }
 });
 

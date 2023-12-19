@@ -1,5 +1,5 @@
 const dal = require("./p.db");
-
+DEBUG = true;
 async function getLogins() {
   let SQL = `SELECT id AS _id, username, password, email, uuid FROM public."Logins"`;
   try {
@@ -32,6 +32,7 @@ async function addLogin(name, email, password, uuidv4) {
     VALUES ($1, $2, $3, $4) RETURNING id;`
   try {
     let results = await dal.query(SQL, [name, email, password, uuidv4]);
+    console.log("Registration result:", results.rows);
     return results.rows[0].id;
   } catch (error) {
     console.log(error);
