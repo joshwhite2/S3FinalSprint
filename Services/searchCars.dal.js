@@ -1,6 +1,12 @@
+const logSearch = require("./logging/logging");
+
 // function that combines postgres and mongo queries to search for cars
-const searchCars = async (search) => {
+const searchCars = async (userID, search) => {
   try {
+    const timestamp = new Date().toISOString();
+
+    logSearch(userID, search, timestamp);
+
     // Search in PostgreSQL
     const postgresResult = await getCarsPostgres(search);
 
