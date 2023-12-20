@@ -1,5 +1,5 @@
 // function that combines postgres and mongo queries to search for cars
-const logSearchAction = require('./logging'); // Import the logging function
+const logSearchAction = require('./src/routes/logging'); // Import the logging function
  
 const searchCars = async (userId, search) => {
   try {

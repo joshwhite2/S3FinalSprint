@@ -10,22 +10,8 @@
   <!-- Your HTML content here -->
   <!-- src/views/index.ejs -->
   <%-include ('partials/login.ejs') %>
-  <h3>Login to keep track of your searches ... if you find that creepy, search privately here!</h3>
 
 
-<form action="/search" method="POST">
-  <label for="query">Search:</label>
-  <input type="text" id="query" name="query" required>
-
-  <label for="source">Data Source:</label>
-  <select id="source" name="source" required>
-    <option value="postgres">PostgreSQL</option>
-    <option value="mongo">MongoDB</option>
-    <option value="both">Both</option>
-  </select>
-
-  <button type="submit">Search</button>
-</form>
 
 </body>
 </html>

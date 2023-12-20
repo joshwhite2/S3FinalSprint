@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 console.log("Executing login.js");
-const {getLoginPostgres} = require('../../Services/pg.logins.dal');
+const logins = require('../../Services/pg.logins.dal');
 router.get('/register', (req, res) => {
     res.render('register'); // Update with your actual view name
   });
   
   // Registration Process
-  router.get ('/register', (req, res) => {
-    res.render('register.ejs');
-  })
+ 
+  
   router.post('/register', async (req, res) => {
     try {
       const { name, email, password } = req.body;
@@ -19,7 +18,7 @@ router.get('/register', (req, res) => {
       res.redirect('/');
     } catch (error) {
       console.error(error);
-      res.redirect('/register'); erro
+      res.redirect('/login'); 
     }
   });
   
@@ -30,7 +29,7 @@ router.get('/register', (req, res) => {
   
   // Login Process
   router.post('/login', passport.authenticate('local', {
-    successRedirect: '/', // Update with your desired redirect path
+    successRedirect: '/profile', // Update with your desired redirect path
     failureRedirect: '/login',
     failureFlash: true
   }));
