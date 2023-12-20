@@ -1,4 +1,8 @@
 <h1>Register</h1>
+<!-- register.ejs (registration form) -->
+<% if (messages.error) { %>
+    <p><%= messages.error %></p>
+  <% } %>
 <form action="/register" method="POST">
     <div> 
         <label for="name">Name</label>

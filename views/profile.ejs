@@ -4,10 +4,11 @@
   <title>User Profile</title>
 </head>
 <body>
+  <%= user.name %>
+  <h2><%= user && user.name ? user.name + "'s Profile" : "User Profile" %></h2>
 
   <div class="content">
-    <p><%= user.name %>'s Profile</p>
-    <p>Email: <%= user.email %></p>
+  
 
     <form action="/search" method="POST">
       <label for="query">Search:</label>
@@ -21,7 +22,7 @@
       </select>
     
       <button type="submit">Search</button>
-      
+
     </form>
     
 

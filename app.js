@@ -13,7 +13,7 @@ const logins = require('./Services/pg.logins.dal') // use POSTGRESQL dal
 const localStrategy = require('passport-local').Strategy;
 const methodOverride = require('method-override');
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // Set up EJS for views
 app.set('views', path.join(__dirname, 'views'));
@@ -47,7 +47,6 @@ passport.deserializeUser( async (id, done) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public')); // Define static folder for assets (if needed)
-app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -56,43 +55,63 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
+app.use(flash());
 
 app.get('/', (req, res) => {
   res.render('index.ejs', { name: req.user ? req.user.username : null });
 });
 
+app.get('/404', (req, res) => {
+  res.render('404.ejs');})
 
 
-async function getUser(userId) {
-  // Implementation depends on your data source
-  // This is just a placeholder
-  return {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      hobbies: ['Reading', 'Coding', 'Hiking']
-  };
-}
-app.get('/profile/:userId', checkAuthenticated, async (req, res) => {
-  const user = await getUser(req.params.userId);
-  res.render('profile.ejs', { user });
-});
+   async function getUser(userId) {
+    const user = await logins.getLoginById(userId);
+    console.log('Fetched user:', user);
+  return user;
+};
+ 
+  app.get('/login', checkNotAuthenticated, (req, res) => {
+    res.render('index.ejs');
+  });
 
-app.get('/query/:word', checkAuthenticated, async (req, res) => {
-  const results = await logins.findByQuery(req.params.word);
-  res.json(results);
-});
+  app.get('/profile/:userId', checkAuthenticated, async (req, res) => {
+    const user = await getUser(req.params.userId);
+    res.render('profile.ejs', { user });
+    console.log(`{user}`)});
 
-// Passport checkNotAuthenticated() middleware.
-// This middleware is only for the login and register. If someone stumbles 
-// upon these routes they only need access if they are NOT authenticated. 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('index.ejs');
-});
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/profile',
-  failureRedirect: '/sample2',
-  failureFlash: true
-}));
+  app.get('/profile', checkAuthenticated, async (req, res) => {
+    const user = await getUser(req.user._id); // Use req.user._id
+    res.render('profile.ejs', { user });
+    console.log('Reached /profile route');
+  });
+
+  app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect:'/profile',
+    failureRedirect: '/login',
+    failureFlash: true
+  }));
+  function checkAuthenticated(req, res, next) {
+    if ( req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+  }
+  function checkNotAuthenticated(req, res, next) {
+    if ( req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    return next();}
+  
+
+  
+  app.get('/query/:word', checkAuthenticated, async (req, res) => {
+    const results = await logins.findByQuery(req.params.word);
+    res.json(results);
+  });
+
+
+
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs');
@@ -100,12 +119,12 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
   try {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      let result = await logins.addLogin(req.body.name, req.body.email, hashedPassword, uuid.v4());
-      res.redirect('/register');
-  } catch(error) {
-      console.log(error);
-      res.redirect('/login');
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    let result = await logins.addLogin(req.body.name, req.body.email, hashedPassword, uuid.v4());
+    res.redirect('/login');
+  } catch (error) {
+    req.flash('error', 'Registration failed. Please try again.'); // Flash an error message
+    res.redirect('/register'); // Redirect back to the registration page on failure
   }
 });
 
@@ -116,17 +135,8 @@ app.delete('/logout', function(req, res, next) {
   });
 });
 
-function checkAuthenticated(req, res, next) {
-  if ( req.isAuthenticated()) {
-      return next();
-  }
-  res.redirect('/');
-}
-function checkNotAuthenticated(req, res, next) {
-  if ( req.isAuthenticated()) {
-      return res.redirect('/');
-  }
-  return next();}
+
+
 
 
 
@@ -138,3 +148,4 @@ app.use('/', indexRoutes);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
