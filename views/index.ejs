@@ -9,6 +9,9 @@
   <h1>Welcome to Your Search Engine</h1>
   <!-- Your HTML content here -->
   <!-- src/views/index.ejs -->
+  <%-include ('partials/login.ejs') %>
+  <h3>Login to keep track of your searches ... if you find that creepy, search privately here!</h3>
+
 
 <form action="/search" method="POST">
   <label for="query">Search:</label>
