@@ -1,34 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>User Profile</title>
-</head>
-<body>
-  <%= user.name %>
-  <h2><%= user && user.name ? user.name + "'s Profile" : "User Profile" %></h2>
+  <head>
+    <title>User Profile</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+      }
 
-  <div class="content">
-  
+      h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-    <form action="/search" method="POST">
-      <label for="query">Search:</label>
-      <input type="text" id="query" name="query" required>
-    
-      <label for="source">Data Source:</label>
-      <select id="source" name="source" required>
-        <option value="postgres">PostgreSQL</option>
-        <option value="mongo">MongoDB</option>
-        <option value="both">Both</option>
-      </select>
-    
-      <button type="submit">Search</button>
+      .content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-    </form>
-    
+      form {
+        margin-top: 20px;
+      }
 
-    
-   
-  </div>
-  <%- include('./partials/logout.ejs') %>
-</body>
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button[type="submit"] {
+        display: block;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <%= user.name %>
+    <h2>
+      <%= user && user.name ? user.name + "'s Profile" : "User Profile" %>
+    </h2>
+
+    <div class="content">
+      <form action="/search" method="POST">
+        <label for="query">Search:</label>
+        <input type="text" id="query" name="query" required />
+
+        <label for="source">Data Source:</label>
+        <select id="source" name="source" required>
+          <option value="postgres">PostgreSQL</option>
+          <option value="mongo">MongoDB</option>
+          <option value="both">Both</option>
+        </select>
+
+        <button type="submit">Search</button>
+        
+      </form>
+    </div>
+    <%-include('./partials/logout.ejs') %>
+  </body>
 </html>

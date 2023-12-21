@@ -1,4 +1,64 @@
-<h1>Register</h1>
+
+<style>
+    .registration-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .registration-form h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .registration-form label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .registration-form input[type="text"],
+    .registration-form input[type="email"],
+    .registration-form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .registration-form button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .registration-form button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .registration-form a {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Register</h1>
+  <!-- register.ejs (registration form) -->
+  <% if (messages.error) { %>
+  <p><%= messages.error %></p>
+  <% } %>
+  <form action="/register" method="POST" class="registration-form"><h1>Register</h1>
 <!-- register.ejs (registration form) -->
 <% if (messages.error) { %>
     <p><%= messages.error %></p>
@@ -18,4 +78,3 @@
     </div>
     <button type="submit">Register</button>
 </form>
-<a href="/login">Login</a>
